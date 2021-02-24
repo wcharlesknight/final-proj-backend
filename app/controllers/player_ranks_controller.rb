@@ -1,0 +1,2 @@
+class PlayerRanksController < ApplicationController
+end
