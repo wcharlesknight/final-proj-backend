@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     def show 
         user = User.find(params[:id])
        
-        render json: user
+        render json: user, include: [:games]
     end
 
     def create
@@ -21,6 +21,11 @@ class UsersController < ApplicationController
         user = User.find(params[:id])
         user.update(username: params[:username])
         render json: user 
+    end
+
+    def high_scores
+        user = User.find(params[:id])
+        render json: user.games.max_by(10){ |x| x.score }
     end
 
     private 
