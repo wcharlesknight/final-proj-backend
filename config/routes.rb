@@ -15,5 +15,7 @@ Rails.application.routes.draw do
   get '/persist', to: 'auth#show'
   get '/highscore/:id', to: 'users#high_scores'
   get '/leaders', to: 'games#leaders'
+  post '/multi', to: 'games#multiplayer'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  mount ActionCable.server => '/cable'
 end
