@@ -1,4 +1,4 @@
-class MultiScoresChannel < ApplicationCable::Channel
+class PlayersChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
     multi_game = MultiGame.find(params[:multi_game_id]) 

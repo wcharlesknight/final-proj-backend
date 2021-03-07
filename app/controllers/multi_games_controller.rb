@@ -7,8 +7,9 @@ class MultiGamesController < ApplicationController
     end
 
     def show
-      multi_game = MultiGame.find(params[:id])
-      render json: MultiGameSerializer.new(multi_game)
+      # byebug
+      multi_game = MultiGame.find(params['id'])
+      render json: multi_game
     end
 
     def create
@@ -18,7 +19,7 @@ class MultiGamesController < ApplicationController
          MultiGameSerializer.new(multi_game)
        ).serializable_hash
        ActionCable.server.broadcast "multi_#{multi_game.id}", serialized_data
-       head :okwq
+       head :ok
      end
      
     end
