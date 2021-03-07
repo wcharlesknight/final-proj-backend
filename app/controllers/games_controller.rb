@@ -11,20 +11,11 @@ class GamesController < ApplicationController
         render json: games, include: :user 
     end
 
-    def multiplayer 
-        game = Game.new(game_params)
-        if game.save
-          serialized_data = ActiveModelSerializers::Adapter::Json.new(
-            GameSerializer.new(game)
-          ).serializable_hash
-          ActionCable.server.broadcast 'games_channel', serialized_data
-          head :ok
-        end
-    end
+   
 
     private 
 
     def game_params
-        params.require(:game).permit(:user_id, :score, :multi_scores)
+        params.require(:game).permit(:user_id, :score)
     end
 end

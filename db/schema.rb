@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_201307) do
+ActiveRecord::Schema.define(version: 2021_03_06_185235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,12 +40,18 @@ ActiveRecord::Schema.define(version: 2021_03_04_201307) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "multi_scores", force: :cascade do |t|
-    t.integer "points"
-    t.bigint "game_id", null: false
+  create_table "multi_games", force: :cascade do |t|
+    t.string "result"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_id"], name: "index_multi_scores_on_game_id"
+  end
+
+  create_table "multi_scores", force: :cascade do |t|
+    t.integer "points"
+    t.bigint "multi_game_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["multi_game_id"], name: "index_multi_scores_on_multi_game_id"
   end
 
   create_table "player_ranks", force: :cascade do |t|
@@ -55,6 +61,15 @@ ActiveRecord::Schema.define(version: 2021_03_04_201307) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["rank_id"], name: "index_player_ranks_on_rank_id"
     t.index ["user_id"], name: "index_player_ranks_on_user_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "multi_game_id"
+    t.index ["user_id"], name: "index_players_on_user_id"
   end
 
   create_table "ranks", force: :cascade do |t|
@@ -73,7 +88,8 @@ ActiveRecord::Schema.define(version: 2021_03_04_201307) do
   add_foreign_key "game_letters", "games"
   add_foreign_key "game_letters", "letters"
   add_foreign_key "games", "users"
-  add_foreign_key "multi_scores", "games"
+  add_foreign_key "multi_scores", "multi_games"
   add_foreign_key "player_ranks", "ranks"
   add_foreign_key "player_ranks", "users"
+  add_foreign_key "players", "users"
 end

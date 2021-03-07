@@ -1,3 +1,3 @@
 class MultiScoreSerializer < ActiveModel::Serializer
-  attributes :id, :game_id, :points 
+  attributes :id, :multi_game_id, :points 
 end

@@ -1,3 +1,3 @@
 class MultiScore < ApplicationRecord
-  belongs_to :game
+  belongs_to :multi_game
 end

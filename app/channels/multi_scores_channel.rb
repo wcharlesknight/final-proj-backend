@@ -1,8 +1,9 @@
 class MultiScoresChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
-    game = Game.find.(params[:game]) 
-    stream_for game 
+    multi_game = MultiGame.find(params[:multi_game_id]) 
+    stream_for multi_game
+   
   end
 
   def unsubscribed
