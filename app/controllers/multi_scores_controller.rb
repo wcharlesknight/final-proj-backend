@@ -9,7 +9,8 @@ class MultiScoresController < ApplicationController
           serialized_data = ActiveModelSerializers::Adapter::Json.new(
             MultiScoreSerializer.new(multi_score)
           ).serializable_hash
-          MultiScoresChannel.broadcast_to multi_game, serialized_data
+          ActionCable.server.broadcast "multi_#{multi_game.id}", serialized_data
+          # MultiScoresChannel.broadcast_to multi_game, serialized_data
           head :ok
         end
       end

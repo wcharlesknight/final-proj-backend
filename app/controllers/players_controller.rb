@@ -9,7 +9,8 @@ class PlayersController < ApplicationController
           serialized_data = ActiveModelSerializers::Adapter::Json.new(
             PlayerSerializer.new(player)
           ).serializable_hash
-          PlayersChannel.broadcast_to multi_game, serialized_data
+          ActionCable.server.broadcast "multi_#{multi_game.id}", serialized_data
+        #   PlayersChannel.broadcast_to multi_game, serialized_data
           head :ok
         end
       end
