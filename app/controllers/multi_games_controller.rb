@@ -8,8 +8,8 @@ class MultiGamesController < ApplicationController
 
     def show
       # byebug
-      multi_game = MultiGame.find(params['id'])
-      render json: multi_game
+      multi_game = MultiGame.find(params[:id])
+      render json: multi_game, include: [:players, :multi_scores ]
     end
 
     def create
@@ -21,8 +21,19 @@ class MultiGamesController < ApplicationController
        ActionCable.server.broadcast "multi_#{multi_game.id}", serialized_data
        head :ok
      end
-     
     end
+
+    def player_one
+      multi_game = MultiGame.create(multi_game_params)
+      render json: multi_game, include: [:multi_scores, :players]
+    end
+
+    def destroy
+      multi_game = MultiGame.find(params[:id])
+      multi_game.destroy 
+    end
+
+    private 
 
    def multi_game_params
         params.require(:multi_game).permit(:result, :multi_scores, :players)

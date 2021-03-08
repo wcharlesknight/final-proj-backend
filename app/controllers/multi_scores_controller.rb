@@ -18,7 +18,7 @@ class MultiScoresController < ApplicationController
       private
       
       def multi_score_params
-        params.require(:multi_score).permit(:points, :multi_game_id)
+        params.require(:multi_score).permit(:points, :multi_game_id, :player_id, :player_name)
       end
     
   end

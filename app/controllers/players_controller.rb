@@ -2,6 +2,7 @@ class PlayersController < ApplicationController
     skip_before_action :authorized
 
     def create
+        
         player = Player.new(player_params)
         multi_game = MultiGame.find(player_params[:multi_game_id])
         # byebug
@@ -14,6 +15,11 @@ class PlayersController < ApplicationController
           head :ok
         end
       end
+    
+    def destroy
+      player = Player.find(params[:id])
+      player.destroy
+    end
 
     private
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_06_185235) do
+ActiveRecord::Schema.define(version: 2021_03_08_015756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 2021_03_06_185235) do
     t.bigint "multi_game_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "player_id"
+    t.string "player_name"
     t.index ["multi_game_id"], name: "index_multi_scores_on_multi_game_id"
   end
 
