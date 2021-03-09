@@ -2,9 +2,11 @@ class MultiScoresController < ApplicationController
     skip_before_action :authorized
 
     def create
+      
+        byebug
         multi_score = MultiScore.new(multi_score_params)
         multi_game = MultiGame.find(multi_score_params[:multi_game_id])
-        # byebug
+        print("#{multi_game} #{multi_score}")
         if multi_score.save
           serialized_data = ActiveModelSerializers::Adapter::Json.new(
             MultiScoreSerializer.new(multi_score)

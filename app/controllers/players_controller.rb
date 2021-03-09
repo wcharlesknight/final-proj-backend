@@ -2,16 +2,13 @@ class PlayersController < ApplicationController
     skip_before_action :authorized
 
     def create
-        
         player = Player.new(player_params)
         multi_game = MultiGame.find(player_params[:multi_game_id])
-        # byebug
         if player.save
           serialized_data = ActiveModelSerializers::Adapter::Json.new(
             PlayerSerializer.new(player)
           ).serializable_hash
           ActionCable.server.broadcast "multi_#{multi_game.id}", serialized_data
-        #   PlayersChannel.broadcast_to multi_game, serialized_data
           head :ok
         end
       end
