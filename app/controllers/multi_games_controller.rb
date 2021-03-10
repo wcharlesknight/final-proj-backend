@@ -7,7 +7,6 @@ class MultiGamesController < ApplicationController
     end
 
     def show
-      # byebug
       multi_game = MultiGame.find(params[:id])
       render json: multi_game, include: [:players, :multi_scores ]
     end
