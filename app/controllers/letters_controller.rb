@@ -3,15 +3,6 @@ class LettersController < ApplicationController
     def index
         letters = []
         
-        # 2.times do |x|
-        #     letters << Letter.where(character: 'H').sample 
-        # end
-
-           
-        # 1.times do |x|
-        #     letters << Letter.where(character: 'A').sample 
-        # end
-
         1.times do |x|
             letters << Letter.all.sample 
         end
@@ -30,7 +21,7 @@ class LettersController < ApplicationController
 
         1.times do |x|
             letters <<  Letter.where(vowel: true).sample
-            letters << Letter.where(character: ['A', 'E', 'O', 'I'].sample ).sample 
+            letters << Letter.where(character: ['A', 'E', 'O'].sample ).sample 
         end
 
         render json: letters
